@@ -1,0 +1,313 @@
+/* =====================================================
+   Global reset / tokens
+   ===================================================== */
+:host {
+  display: block;
+  min-height: 100dvh;
+  background: #f0f2f5;
+  font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+  color: #1a1a2e;
+}
+
+/* =====================================================
+   Layout
+   ===================================================== */
+.app-wrapper {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 4rem;
+}
+
+.card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* =====================================================
+   Header
+   ===================================================== */
+.app-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  position: relative;
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 0.25rem;
+    color: #1a1a2e;
+  }
+
+  .subtitle {
+    color: #6b7280;
+    font-size: 0.95rem;
+    margin: 0;
+  }
+}
+
+.pending-badge {
+  display: inline-block;
+  margin-top: 0.5rem;
+  background: #ef4444;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.2rem 0.75rem;
+  border-radius: 999px;
+}
+
+/* =====================================================
+   Add form
+   ===================================================== */
+.add-form {
+  h2 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 0.75rem;
+    color: #374151;
+  }
+}
+
+.form-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+
+  &.form-meta {
+    margin-top: 0.5rem;
+    align-items: center;
+  }
+}
+
+.input-title {
+  flex: 1 1 100%;
+  padding: 0.6rem 0.9rem;
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+
+  &:focus {
+    border-color: #4f8ef7;
+  }
+}
+
+select,
+input[type='date'],
+input[type='time'] {
+  padding: 0.5rem 0.75rem;
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  outline: none;
+  background: #fff;
+  transition: border-color 0.2s;
+
+  &:focus {
+    border-color: #4f8ef7;
+  }
+}
+
+select {
+  flex: 1 1 140px;
+}
+
+input[type='date'],
+input[type='time'] {
+  flex: 1 1 120px;
+}
+
+.btn-add {
+  padding: 0.5rem 1.25rem;
+  background: #4f8ef7;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s, opacity 0.2s;
+
+  &:hover:not(:disabled) {
+    background: #3b75d4;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+/* =====================================================
+   Filter bar
+   ===================================================== */
+.filter-bar {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.filter-btn {
+  padding: 0.35rem 0.9rem;
+  border: 1.5px solid #d1d5db;
+  border-radius: 999px;
+  background: #fff;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+
+  &.active {
+    background: var(--cat-color, #4f8ef7);
+    border-color: var(--cat-color, #4f8ef7);
+    color: #fff;
+    font-weight: 600;
+  }
+
+  &:hover:not(.active) {
+    background: #f3f4f6;
+  }
+}
+
+/* =====================================================
+   Todo items
+   ===================================================== */
+.todo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  border-left: 4px solid var(--cat-color, #ccc);
+  padding: 0.75rem 1rem;
+  transition: opacity 0.2s;
+
+  &.completed {
+    opacity: 0.55;
+
+    .item-title {
+      text-decoration: line-through;
+      color: #9ca3af;
+    }
+  }
+
+  &.overdue {
+    background: #fff5f5;
+  }
+}
+
+.item-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.check-btn {
+  background: none;
+  border: none;
+  font-size: 1.35rem;
+  cursor: pointer;
+  line-height: 1;
+  flex-shrink: 0;
+  padding: 0;
+  transition: transform 0.15s;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+}
+
+.item-content {
+  min-width: 0;
+}
+
+.item-title {
+  display: block;
+  font-size: 1rem;
+  font-weight: 500;
+  word-break: break-word;
+}
+
+.item-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.3rem;
+}
+
+.category-pill {
+  display: inline-block;
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.due-date {
+  font-size: 0.8rem;
+  color: #6b7280;
+
+  &.overdue-text {
+    color: #ef4444;
+    font-weight: 600;
+  }
+}
+
+.btn-delete {
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  opacity: 0.4;
+  transition: opacity 0.2s, transform 0.15s;
+  flex-shrink: 0;
+
+  &:hover {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+/* =====================================================
+   Empty state
+   ===================================================== */
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #6b7280;
+  font-size: 1rem;
+}
+
+/* =====================================================
+   Responsive
+   ===================================================== */
+@media (max-width: 480px) {
+  .form-meta {
+    flex-direction: column;
+    align-items: stretch !important;
+  }
+
+  .btn-add {
+    width: 100%;
+    text-align: center;
+  }
+
+  .filter-bar {
+    gap: 0.4rem;
+  }
+}
