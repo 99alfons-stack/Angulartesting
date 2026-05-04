@@ -1,0 +1,114 @@
+<div class="app-wrapper">
+  <!-- Header -->
+  <header class="app-header">
+    <h1>📋 My Schedule</h1>
+    <p class="subtitle">Track your work, training &amp; lessons</p>
+    @if (todoService.pendingCount() > 0) {
+      <div class="pending-badge">{{ todoService.pendingCount() }} pending</div>
+    }
+  </header>
+
+  <!-- Add-todo form -->
+  <section class="add-form card">
+    <h2>Add new item</h2>
+    <div class="form-row">
+      <input
+        class="input-title"
+        type="text"
+        placeholder="What do you need to do?"
+        [ngModel]="newTitle()"
+        (ngModelChange)="newTitle.set($event)"
+        (keydown.enter)="addTodo()"
+      />
+    </div>
+    <div class="form-row form-meta">
+      <select
+        [ngModel]="newCategory()"
+        (ngModelChange)="newCategory.set($event)"
+      >
+        @for (cat of categories; track cat) {
+          <option [value]="cat">{{ categoryLabels[cat] }}</option>
+        }
+      </select>
+      <input
+        type="date"
+        [ngModel]="newDueDate()"
+        (ngModelChange)="newDueDate.set($event)"
+        [min]="todayStr"
+      />
+      <input
+        type="time"
+        [ngModel]="newDueTime()"
+        (ngModelChange)="newDueTime.set($event)"
+      />
+      <button class="btn-add" (click)="addTodo()" [disabled]="!newTitle().trim()">
+        + Add
+      </button>
+    </div>
+  </section>
+
+  <!-- Filter bar -->
+  <nav class="filter-bar">
+    <button
+      class="filter-btn"
+      [class.active]="activeFilter() === 'all'"
+      (click)="setFilter('all')"
+    >
+      All
+    </button>
+    @for (cat of categories; track cat) {
+      <button
+        class="filter-btn"
+        [class.active]="activeFilter() === cat"
+        [style.--cat-color]="colorOf(cat)"
+        (click)="setFilter(cat)"
+      >
+        {{ categoryLabels[cat] }}
+      </button>
+    }
+  </nav>
+
+  <!-- Todo list -->
+  <section class="todo-list">
+    @if (filteredItems().length === 0) {
+      <div class="empty-state">
+        <span>🎉 Nothing here yet — enjoy your free time!</span>
+      </div>
+    }
+    @for (item of filteredItems(); track item.id) {
+      <div
+        class="todo-item card"
+        [class.completed]="item.completed"
+        [class.overdue]="isOverdue(item)"
+        [style.--cat-color]="colorOf(item.category)"
+      >
+        <div class="item-left">
+          <button
+            class="check-btn"
+            [class.checked]="item.completed"
+            (click)="toggle(item)"
+            [attr.aria-label]="item.completed ? 'Mark as pending' : 'Mark as done'"
+          >
+            {{ item.completed ? '✅' : '⬜' }}
+          </button>
+          <div class="item-content">
+            <span class="item-title">{{ item.title }}</span>
+            <div class="item-meta">
+              <span class="category-pill" [style.background]="colorOf(item.category)">
+                {{ labelOf(item.category) }}
+              </span>
+              @if (item.dueDate) {
+                <span class="due-date" [class.overdue-text]="isOverdue(item)">
+                  �� {{ formatDue(item) }}
+                </span>
+              }
+            </div>
+          </div>
+        </div>
+        <button class="btn-delete" (click)="remove(item)" aria-label="Delete">
+          🗑️
+        </button>
+      </div>
+    }
+  </section>
+</div>
