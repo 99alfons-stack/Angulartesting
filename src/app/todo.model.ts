@@ -4,10 +4,10 @@ export interface TodoItem {
   id: string;
   title: string;
   category: TodoCategory;
-  dueDate: string;   // ISO date string (YYYY-MM-DD)
-  dueTime: string;   // HH:MM
+  dueDate: string;   
+  dueTime: string;   
   completed: boolean;
-  createdAt: string; // ISO date-time string
+  createdAt: string; 
 }
 
 export const CATEGORY_LABELS: Record<TodoCategory, string> = {

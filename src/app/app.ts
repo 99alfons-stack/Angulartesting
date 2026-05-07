@@ -17,16 +17,16 @@ import {
 export class App {
   protected readonly todoService = inject(TodoService);
 
-  // Form fields
+ 
   protected newTitle = signal('');
   protected newCategory = signal<TodoCategory>('work');
   protected newDueDate = signal('');
   protected newDueTime = signal('');
 
-  // Filter
+  
   protected activeFilter = signal<TodoCategory | 'all'>('all');
 
-  // Lookup maps for template use
+ 
   protected readonly categoryLabels = CATEGORY_LABELS;
   protected readonly categoryColors = CATEGORY_COLORS;
   protected readonly categories: TodoCategory[] = [
